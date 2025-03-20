@@ -5,8 +5,24 @@ from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
 import nltk_download
+import os
+
+
 nltk.download('punkt')
 ps = PorterStemmer()
+
+# Define a directory to store NLTK data in the temporary folder
+nltk_data_path = "/tmp/nltk_data"
+os.makedirs(nltk_data_path, exist_ok=True)
+
+# Append this directory to the NLTK data path
+nltk.data.path.append(nltk_data_path)
+
+# Download stopwords inside this directory
+nltk.download('stopwords', download_dir=nltk_data_path)
+
+from nltk.corpus import stopwords
+print("Stopwords loaded successfully:", stopwords.words('english')[:10])  # Print first 10 words
 
 
 def transform_text(text):
